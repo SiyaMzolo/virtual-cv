@@ -266,10 +266,19 @@ body {
 /* Projects Section */
 .project-grid {
     display: grid;
+    /* Default for smaller screens: auto-fit with a minimum width */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
 }
 
+/* For larger screens (e.g., desktops), force 3 columns */
+@media (min-width: 992px) { /* You can adjust this breakpoint as needed */
+    .project-grid {
+        grid-template-columns: repeat(3, 1fr); /* Forces 3 columns of equal width */
+    }
+}
+
+/* Ensure existing project card styles are maintained */
 .project-card {
     background: var(--light-text);
     border-radius: 8px;
@@ -303,12 +312,6 @@ body {
     flex-grow: 1;
 }
 
-.project-links {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-}
-
 .project-link {
     display: inline-flex;
     align-items: center;
@@ -317,13 +320,13 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
+    margin-top: auto; /* Pushes the link to the bottom of the card */
 }
 
 .project-link:hover {
     color: #0056b3;
     text-decoration: underline;
 }
-
 /* Skills Section */
 .skill-category {
     background: var(--light-text);
