@@ -8,6 +8,16 @@
     --light-text: #ffffff;
     --border-color: #dee2e6;
     --font-family: 'Roboto', sans-serif;
+
+    /* New Project Card Colors */
+    --project-card-bg: #ffffff;
+    --project-card-hover-bg: var(--primary-color);
+    --project-card-text: var(--dark-text);
+    --project-card-hover-text: var(--light-text);
+    --project-card-link-color: var(--primary-color);
+    --project-card-hover-link-color: var(--light-text);
+    --project-card-shadow: rgba(0,0,0,0.05);
+    --project-card-hover-shadow: rgba(0, 123, 255, 0.4); /* Stronger blue shadow on hover */
 }
 
 * {
@@ -266,66 +276,106 @@ body {
 /* Projects Section */
 .project-grid {
     display: grid;
-    /* Default for smaller screens: auto-fit with a minimum width */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
 }
 
 /* For larger screens (e.g., desktops), force 3 columns */
-@media (min-width: 992px) { /* You can adjust this breakpoint as needed */
+@media (min-width: 992px) {
     .project-grid {
-        grid-template-columns: repeat(3, 1fr); /* Forces 3 columns of equal width */
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Ensure existing project card styles are maintained */
+/* Unique Project Card Styles */
 .project-card {
-    background: var(--light-text);
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--project-card-bg);
+    border-radius: 12px; /* Slightly more rounded corners */
+    padding: 30px; /* More padding */
+    box-shadow: 0 6px 15px var(--project-card-shadow); /* Softer initial shadow */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(0, 123, 255, 0.1); /* Subtle border */
+    overflow: hidden; /* Ensure content stays within rounded corners */
+    position: relative; /* For the overlay effect */
+    z-index: 1; /* Ensure text is above overlay */
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color); /* Overlay color */
+    transform: translateY(100%); /* Start off-screen at the bottom */
+    transition: transform 0.4s ease;
+    z-index: -1; /* Place behind content */
+    opacity: 0.9; /* Slightly transparent overlay */
+}
+
+.project-card:hover::before {
+    transform: translateY(0); /* Slide up on hover */
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
+    transform: translateY(-10px) scale(1.02); /* Lift and slightly enlarge */
+    box-shadow: 0 15px 30px var(--project-card-hover-shadow); /* Stronger, colored shadow */
+    color: var(--project-card-hover-text); /* Change text color on hover */
+}
+
+/* Text color changes on hover */
+.project-card:hover h3,
+.project-card:hover .technologies,
+.project-card:hover p,
+.project-card:hover .project-link {
+    color: var(--project-card-hover-text);
+    z-index: 2; /* Ensure text is above overlay */
 }
 
 .project-card h3 {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
+    font-size: 1.6rem; /* Slightly larger title */
+    color: var(--project-card-link-color); /* Initial title color */
+    margin-bottom: 12px;
+    transition: color 0.4s ease; /* Smooth transition for color */
 }
 
 .project-card .technologies {
-    font-size: 0.95rem;
-    color: var(--secondary-color);
-    margin-bottom: 15px;
+    font-size: 1rem; /* Slightly larger tech text */
+    color: var(--secondary-color); /* Initial tech color */
+    margin-bottom: 18px;
     font-weight: bold;
+    transition: color 0.4s ease;
 }
 
 .project-card p {
-    font-size: 1rem;
+    font-size: 1.05rem; /* Slightly larger paragraph text */
     flex-grow: 1;
+    margin-bottom: 20px; /* Space before link */
+    transition: color 0.4s ease;
 }
 
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--primary-color);
+    color: var(--project-card-link-color);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.4s ease, transform 0.2s ease;
     margin-top: auto; /* Pushes the link to the bottom of the card */
+    position: relative; /* For pseudo-elements */
+}
+
+.project-card:hover .project-link {
+    text-decoration: underline; /* Add underline on hover */
+    color: var(--project-card-hover-link-color); /* Change link color on hover */
 }
 
 .project-link:hover {
-    color: #0056b3;
-    text-decoration: underline;
+    transform: translateX(5px); /* Slight movement on link hover */
 }
 
 /* Skills Section */
@@ -386,17 +436,15 @@ body {
     color: var(--primary-color);
 }
 
-/* Contact Section Enhancements */
-
+/* Contact Section (Adjusted after form removal) */
 .contact-info {
     text-align: center;
-    max-width: 800px;
+    max-width: 600px; /* Make it a bit narrower since there's no form */
     margin: 0 auto;
-    /* Add some padding for visual spacing from the edges */
     padding: 20px;
-    background-color: var(--light-text); /* White background for the whole contact block */
+    background-color: var(--light-text);
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Slightly stronger shadow */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .contact-intro {
@@ -406,9 +454,9 @@ body {
 }
 
 .contact-details {
-    margin-bottom: 40px; /* Space between direct contact details and the form */
-    border-bottom: 1px solid var(--border-color); /* Separator line */
-    padding-bottom: 30px; /* Padding for the separator */
+    margin-bottom: 30px; /* Adjusted margin */
+    padding-bottom: 0; /* No separator line needed without form below */
+    border-bottom: none; /* No separator line needed */
 }
 
 .contact-details p {
@@ -418,16 +466,16 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: var(--dark-text); /* Ensure text color is consistent */
+    color: var(--dark-text);
 }
 
 .contact-details p:last-child {
-    margin-bottom: 0; /* Remove margin from the last paragraph */
+    margin-bottom: 0;
 }
 
 .contact-details i {
-    color: var(--primary-color); /* Icon color */
-    font-size: 1.3rem; /* Adjust icon size */
+    color: var(--primary-color);
+    font-size: 1.3rem;
 }
 
 .contact-details a {
@@ -438,109 +486,25 @@ body {
 
 .contact-details a:hover {
     color: #0056b3;
-    text-decoration: underline; /* Add underline on hover for clarity */
+    text-decoration: underline;
 }
 
-.contact-info h4 { /* Style for "Or Send Me a Message:" */
-    font-size: 1.8rem;
-    margin-top: 30px;
-    margin-bottom: 25px;
-    color: var(--dark-text);
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.contact-info h4::after { /* Underline for "Or Send Me a Message:" */
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    width: 50px; /* Shorter underline than section titles */
-    height: 2px;
-    background-color: var(--primary-color);
-}
-
-
-/* Contact Form Specific Styles */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Space between form groups */
-    padding: 0 20px; /* Inner padding for the form */
-}
-
-.form-group {
-    text-align: left; /* Align labels and inputs to the left */
-}
-
-.form-group label {
-    display: block; /* Make label take its own line */
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--dark-text);
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    font-family: var(--font-family);
-    font-size: 1rem;
-    color: var(--dark-text);
-    background-color: var(--light-bg); /* Light background for inputs */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group textarea:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus highlight */
-    outline: none; /* Remove default outline */
-}
-
-.form-group textarea {
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 120px; /* Minimum height for textarea */
-}
-
-.contact-form .primary-btn {
-    align-self: center; /* Center the submit button */
-    margin-top: 15px; /* Space above the button */
-    padding: 14px 30px; /* Slightly larger button */
-    font-size: 1.1rem;
-}
-
-/* Ensure social links are still styled correctly below the form */
 .contact-social-links {
-    margin-top: 40px; /* More space after the form */
-    padding-top: 30px; /* Padding for the separator */
-    border-top: 1px solid var(--border-color); /* Separator line above social links */
+    margin-top: 30px; /* Keep consistent margin */
+    padding-top: 0; /* No separator line needed above social links */
+    border-top: none; /* No separator line needed */
 }
 
-/* Responsive Adjustments for Contact Section */
-@media (max-width: 480px) {
-    .contact-info {
-        padding: 15px; /* Less padding on very small screens */
-    }
-    .contact-details p {
-        flex-direction: column; /* Stack icon and text on very small screens */
-        gap: 5px;
-    }
-    .contact-details i {
-        margin-bottom: 5px; /* Add space between stacked icon and text */
-    }
-    .contact-info h4 {
-        font-size: 1.5rem; /* Smaller heading for smaller screens */
-    }
-    .contact-form {
-        padding: 0 10px; /* Less inner padding for the form */
-    }
+.contact-social-links a {
+    color: var(--dark-text);
+    font-size: 2.5rem;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-social-links a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
 }
 
 /* Footer */
@@ -609,5 +573,19 @@ body {
 
     .project-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Smaller adjustments for project cards on mobile */
+    .project-card {
+        padding: 20px;
+    }
+    .project-card h3 {
+        font-size: 1.4rem;
+    }
+    .project-card .technologies {
+        font-size: 0.9rem;
+    }
+    .project-card p {
+        font-size: 0.95rem;
     }
 }
