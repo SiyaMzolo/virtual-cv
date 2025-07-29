@@ -386,16 +386,29 @@ body {
     color: var(--primary-color);
 }
 
-/* Contact Section */
+/* Contact Section Enhancements */
+
 .contact-info {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
+    /* Add some padding for visual spacing from the edges */
+    padding: 20px;
+    background-color: var(--light-text); /* White background for the whole contact block */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Slightly stronger shadow */
 }
 
 .contact-intro {
     font-size: 1.2rem;
     margin-bottom: 30px;
+    color: var(--dark-text);
+}
+
+.contact-details {
+    margin-bottom: 40px; /* Space between direct contact details and the form */
+    border-bottom: 1px solid var(--border-color); /* Separator line */
+    padding-bottom: 30px; /* Padding for the separator */
 }
 
 .contact-details p {
@@ -405,6 +418,16 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    color: var(--dark-text); /* Ensure text color is consistent */
+}
+
+.contact-details p:last-child {
+    margin-bottom: 0; /* Remove margin from the last paragraph */
+}
+
+.contact-details i {
+    color: var(--primary-color); /* Icon color */
+    font-size: 1.3rem; /* Adjust icon size */
 }
 
 .contact-details a {
@@ -415,22 +438,109 @@ body {
 
 .contact-details a:hover {
     color: #0056b3;
+    text-decoration: underline; /* Add underline on hover for clarity */
 }
 
-.contact-social-links {
+.contact-info h4 { /* Style for "Or Send Me a Message:" */
+    font-size: 1.8rem;
     margin-top: 30px;
-}
-
-.contact-social-links a {
+    margin-bottom: 25px;
     color: var(--dark-text);
-    font-size: 2.5rem;
-    margin: 0 15px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    padding-bottom: 10px;
 }
 
-.contact-social-links a:hover {
-    color: var(--primary-color);
-    transform: scale(1.1);
+.contact-info h4::after { /* Underline for "Or Send Me a Message:" */
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 50px; /* Shorter underline than section titles */
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+
+/* Contact Form Specific Styles */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between form groups */
+    padding: 0 20px; /* Inner padding for the form */
+}
+
+.form-group {
+    text-align: left; /* Align labels and inputs to the left */
+}
+
+.form-group label {
+    display: block; /* Make label take its own line */
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--dark-text);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    color: var(--dark-text);
+    background-color: var(--light-bg); /* Light background for inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus highlight */
+    outline: none; /* Remove default outline */
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 120px; /* Minimum height for textarea */
+}
+
+.contact-form .primary-btn {
+    align-self: center; /* Center the submit button */
+    margin-top: 15px; /* Space above the button */
+    padding: 14px 30px; /* Slightly larger button */
+    font-size: 1.1rem;
+}
+
+/* Ensure social links are still styled correctly below the form */
+.contact-social-links {
+    margin-top: 40px; /* More space after the form */
+    padding-top: 30px; /* Padding for the separator */
+    border-top: 1px solid var(--border-color); /* Separator line above social links */
+}
+
+/* Responsive Adjustments for Contact Section */
+@media (max-width: 480px) {
+    .contact-info {
+        padding: 15px; /* Less padding on very small screens */
+    }
+    .contact-details p {
+        flex-direction: column; /* Stack icon and text on very small screens */
+        gap: 5px;
+    }
+    .contact-details i {
+        margin-bottom: 5px; /* Add space between stacked icon and text */
+    }
+    .contact-info h4 {
+        font-size: 1.5rem; /* Smaller heading for smaller screens */
+    }
+    .contact-form {
+        padding: 0 10px; /* Less inner padding for the form */
+    }
 }
 
 /* Footer */
